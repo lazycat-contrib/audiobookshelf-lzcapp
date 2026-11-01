@@ -1,0 +1,36 @@
+application:
+  subdomain: audiobookshelf
+  multi_instance: false
+  upstreams:
+    - location: /package-licenses/
+      backend: file:///lzcapp/pkg/content/licenses/
+    - location: /
+      backend: http://audiobookshelf:80/
+
+services:
+  audiobookshelf:
+    # upstream: ghcr.io/advplyr/audiobookshelf:2.37.2
+    image: ghcr.1ms.run/advplyr/audiobookshelf:2.37.2
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=80
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/metadata:/metadata
+
+usage: |
+  Audiobookshelf 是有声书与播客服务器：把音频文件放进库目录，它负责整理章节、封面、进度同步，并可用官方手机 App 收听。
+
+  使用方法：
+  1. 打开应用，首次访问会要求创建管理员账号（本应用自己的账号）。
+  2. 在设置里新建一个媒体库，指向你存放有声书或播客的目录。
+  3. 手机装 Audiobookshelf App，服务器地址填本应用的访问地址，用同一账号登录即可同步进度。
+
+  数据与安全：
+  - 账号、媒体库配置和元数据分别保存在 /lzcapp/var/config 与 /lzcapp/var/metadata，卸载应用会一并删除，请提前备份。
+  - 本包不预置账号或默认密码，首个管理员由你本人首次访问时创建。
+  - 应用经懒猫入口鉴权访问，未开放无需登录的接口路径。
+
+  说明：
+  - 媒体文件本身需要放在你能访问的共享目录里，本包只持久化配置与元数据，不代管音频文件。
+  - 未做真机验证：首次建号、建库扫描、播放、进度同步、手机 App 连接以及重启后持久化均未在设备上实测。

@@ -1,0 +1,18 @@
+package: community.lazycat.app.audiobookshelf
+version: 2.37.2
+name: Audiobookshelf
+description: "Self-hosted audiobook and podcast server with mobile apps and progress sync."
+min_os_version: "1.5.0"
+homepage: https://github.com/advplyr/audiobookshelf
+author: advplyr
+license: GPL-3.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Audiobookshelf
+    description: "自托管有声书与播客服务器，支持进度同步和移动端 App。"
+  en:
+    name: Audiobookshelf
+    description: "Self-hosted audiobook and podcast server with mobile apps and progress sync."
